@@ -2,7 +2,7 @@ import { currentCondition, conditions } from '@modules/staticInformation/current
 import { WeatherActions, weatherActionsType } from './weather.actions';
 export const WEATHER_REDUCER_NODE = 'weather';
 
-interface intialState  {
+export interface IweatherState  {
     date: string;
     list: any[];
 }
@@ -14,10 +14,16 @@ const intialStateCurrentConditions = {
 
 
 
-export const weatherReducer = (state:intialState  = intialStateCurrentConditions, action: WeatherActions) => {
+export const weatherReducer = (state:IweatherState  = intialStateCurrentConditions, action: WeatherActions) => {
     switch (action.type) {
         case weatherActionsType.add:
-            return state.list.push(conditions[state.list.length])
+            return {
+                ... state,
+                list:[
+                    ... state.list,
+                    conditions[state.list.length]
+                ]
+            }
         default:
             return state
     }

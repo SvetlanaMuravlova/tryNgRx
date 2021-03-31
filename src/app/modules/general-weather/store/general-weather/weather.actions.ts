@@ -6,9 +6,7 @@ export enum weatherActionsType {
 
 export class WeatherAddLocation implements Action {
     readonly type = weatherActionsType.add;
-    constructor(public payload: {num: number}) {
-
-    }
+    constructor() {}
 }
 
 export type WeatherActions = WeatherAddLocation;
