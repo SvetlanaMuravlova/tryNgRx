@@ -1,0 +1,52 @@
+html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    font-size: 14px;
+    overflow-y: scroll;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    background-color: $light-grey;
+  
+    @include media-breakpoint-down(sm) {
+      font-size: 12px;
+    }
+  }
+  
+  body::-webkit-scrollbar {
+    display: none;
+  }
+  
+  html, body, .min-h_100 {
+    height: fit-content;
+    min-height: 100%;
+  }
+  
+  [role=button] {
+    cursor: pointer;
+  }
+  
+  .text-bold {
+    font-weight: bold;
+  }
+
+  h1 {
+    text-align: center;
+    width: 100%;
+    margin: 20px 0;
+
+    .pi-sun:before {
+        color: #ff8100;
+        font-size: 30px;
+        vertical-align: initial;
+    }
+  }
+
+  h2 {
+    font-size: 16px;
+    margin-bottom: 15px;
+    color: #54667a;
+  }

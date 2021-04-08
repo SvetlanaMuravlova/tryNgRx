@@ -1,0 +1,12 @@
+<h2>Add new location into your list</h2>
+<div class="select__box" style="width: 100%;">
+    <span class="p-input-icon-left">
+        <i [class]="placeHolder"></i>
+        <input [disabled]="disabled" type="text" pInputText [(ngModel)]="value" (keyup)="updateValue()" >         
+    </span>
+    <div class="select__items_box" *ngIf="items && items.length">
+        <div class="select__item" *ngFor="let item of items" (click)="addAddresse(item)">
+            {{item.Type}}, {{item.LocalizedName}}, {{item.Country.LocalizedName}}
+        </div>
+    </div>
+</div>

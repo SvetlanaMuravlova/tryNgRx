@@ -7,8 +7,12 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
-import { EffectsModule } from '@ngrx/effects';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { EffectsModule } from '@ngrx/effects';
+import { WeatherEffects } from 'src/app/modules/general-weather/store/general-weather/weather.effects';
+import { HttpClientModule } from '@angular/common/http';
+import {MenubarModule} from 'primeng/menubar';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -23,9 +27,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
         strictActionImmutability: true
       }
     }),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    StoreDevtoolsModule.instrument({logOnly: environment.production }),
     StoreRouterConnectingModule.forRoot(),
-    EffectsModule.forRoot([]),
+    EffectsModule.forRoot([WeatherEffects]),
+    HttpClientModule,
+    MenubarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

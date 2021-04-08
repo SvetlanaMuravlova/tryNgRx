@@ -11,13 +11,16 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "es2015",
-    "module": "es2020",
+    "module": "esnext",
     "lib": [
       "es2018",
       "dom"
     ],
     "paths": {
-      "@modules/*": ["src/app/modules/*"]
+      "@modules/*": ["src/app/modules/*"],
+      "@services/*": ["src/app/modules/services/*"],
+      "@generalStore/*": ["src/app/modules/general-weather/store/*"],
+      "@interfaces/*": ["src/app/modules/interfaces*"]
     }
   }
 }
