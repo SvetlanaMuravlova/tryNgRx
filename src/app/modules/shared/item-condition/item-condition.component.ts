@@ -1,10 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ICondition } from 'src/app/modules/interfaces/interfaces';
+import { ICondition } from '@interfaces/interfaces';
 import { DatePipe } from '@angular/common';
-import { IweatherState } from 'src/app/modules/general-weather/store/general-weather/weather.reducer';
+import { IweatherState } from '@generalStore/weather.reducer';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { weatherSelector } from 'src/app/modules/general-weather/store/general-weather/weather.selectors';
+import { weatherSelector } from '@generalStore/weather.selectors';
 
 
 

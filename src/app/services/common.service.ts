@@ -1,9 +1,9 @@
-import { Injectable, OnDestroy } from '@angular/core';
-import { Observable, of, Subject, BehaviorSubject, Subscription } from 'rxjs';
+import { Injectable} from '@angular/core';
+import { Subscription } from 'rxjs';
 import { select, Store } from '@ngrx/store';
-import { IweatherState } from 'src/app/modules/general-weather/store/general-weather/weather.reducer';
-import { GWLocationsKeySelector } from 'src/app/modules/general-weather/store/general-weather/weather.selectors';
-import { AddKeyLocation } from 'src/app/modules/general-weather/store/general-weather/weather.actions'
+import { IweatherState } from '@generalStore/weather.reducer';
+import { GWLocationsKeySelector } from '@generalStore/weather.selectors';
+import { AddKeyLocation } from '@generalStore/weather.actions'
 
 @Injectable({
   providedIn: 'root'

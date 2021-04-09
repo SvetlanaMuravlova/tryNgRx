@@ -1,6 +1,6 @@
 import { currentCondition } from '@modules/staticInformation/currentConditions';
 import { weatherActionsType } from './weather.actions';
-import { ICondition } from 'src/app/modules/interfaces/interfaces';
+import { ICondition } from '@interfaces/interfaces';
 import { state } from '@angular/animations';
 
 export const WEATHER_REDUCER_NODE = 'weather';

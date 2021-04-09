@@ -1,4 +1,6 @@
-<p-menubar [model]="items"></p-menubar>
+<p-menubar [model]="items">
+    <p>Amount apis {{countApis.valueSource | async}}</p>
+</p-menubar>
 <div class="container">
     <router-outlet></router-outlet>
 </div>

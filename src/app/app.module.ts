@@ -9,10 +9,10 @@ import { environment } from '../environments/environment';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EffectsModule } from '@ngrx/effects';
-import { WeatherEffects } from 'src/app/modules/general-weather/store/general-weather/weather.effects';
-import { HttpClientModule } from '@angular/common/http';
+import { WeatherEffects } from '@generalStore/weather.effects';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import {MenubarModule} from 'primeng/menubar';
-
+import { HeadersInterceptor } from 'src/app/interceptors/headers-interceptor';
 @NgModule({
   declarations: [
     AppComponent
@@ -33,7 +33,15 @@ import {MenubarModule} from 'primeng/menubar';
     HttpClientModule,
     MenubarModule
   ],
-  providers: [],
+  providers: [
+    [
+      {
+        provide: HTTP_INTERCEPTORS,
+        useClass: HeadersInterceptor,
+        multi: true
+      }
+    ]
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

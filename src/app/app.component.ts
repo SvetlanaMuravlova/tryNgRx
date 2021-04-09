@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
 import { MenuItem } from 'primeng/api';
+import { CountApisService } from 'src/app/services/count-apis.service'
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -9,10 +11,11 @@ import { MenuItem } from 'primeng/api';
 })
 export class AppComponent {
   items: MenuItem[];
-
   constructor(
-    private primengConfig: PrimeNGConfig
-    ) {}
+    private primengConfig: PrimeNGConfig,
+    public countApis: CountApisService
+  ) {
+  }
 
   ngOnInit() {
     this.primengConfig.ripple = true;

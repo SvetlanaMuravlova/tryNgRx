@@ -18,9 +18,9 @@
     ],
     "paths": {
       "@modules/*": ["src/app/modules/*"],
-      "@services/*": ["src/app/modules/services/*"],
-      "@generalStore/*": ["src/app/modules/general-weather/store/*"],
-      "@interfaces/*": ["src/app/modules/interfaces*"]
+      "@services/*": ["src/app/services/*"],
+      "@generalStore/*": ["src/app/modules/general-weather/store/general-weather/*"],
+      "@interfaces/*": ["src/app/interfaces/*"]
     }
   }
 }

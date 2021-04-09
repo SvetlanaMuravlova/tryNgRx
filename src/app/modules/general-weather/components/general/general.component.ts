@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { IweatherState } from '../../store/general-weather/weather.reducer';
-import {GetConditionsByKey, GetLocationByKey } from '../../store/general-weather/weather.actions'
-import { weatherSelector, GWConditionsListSelector, GWLocationsSelector } from '../../store/general-weather/weather.selectors';
+import { IweatherState } from '@generalStore/weather.reducer';
+import {GetConditionsByKey, GetLocationByKey } from '@generalStore/weather.actions'
+import { weatherSelector, GWConditionsListSelector, GWLocationsSelector } from '@generalStore/weather.selectors';
 import { Observable } from 'rxjs';
 import { CommonService } from '@services/common.service';
 import { ApiService } from '@services/api.service';
-import { ICondition } from 'src/app/modules/interfaces/interfaces';
+import { ICondition } from '@interfaces/interfaces';
 
 @Component({
   selector: 'app-general',

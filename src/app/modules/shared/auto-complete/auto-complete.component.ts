@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChildren, ElementRef, QueryList } from '@angular
 import { ApiService } from '@services/api.service';
 import { catchError, finalize } from 'rxjs/operators';
 import { of } from 'rxjs';
-import { IAutoCompleteItem } from 'src/app/modules/interfaces/interfaces'
+import { IAutoCompleteItem } from '@interfaces/interfaces'
 import { CommonService } from '@services/common.service';
 
 @Component({
