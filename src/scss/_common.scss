@@ -50,3 +50,27 @@ html {
     margin-bottom: 15px;
     color: #54667a;
   }
+
+  .main {
+    width: 100%;
+    margin-top: 55px;
+    display: flex;
+    background-color: white;
+    padding: 20px 5px;
+    border-radius: 6px;
+}
+
+h3 {
+  width: 100%;
+  text-align: center;
+  margin: 55px 0 0 0;
+  font-size: 28px;
+  font-weight: bold;
+
+  &+p {
+    font-size: 15px;
+    font-weight: bold;
+    color: #54667a;
+    margin-bottom: 0;
+  }
+}

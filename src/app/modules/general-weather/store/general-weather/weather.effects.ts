@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { map, mergeMap, catchError, exhaustMap, switchMap, finalize } from 'rxjs/operators';
 import { ApiService } from '@modules/services/api.service';
-import { weatherActionsType,  GetConditionsByKey, SetLoading, SetError } from './weather.actions';
+import { weatherActionsType,  GetConditionsByKey, SetLoading, SetError, GetLocationByKey } from './weather.actions';
 import { IweatherState } from '../../store/general-weather/weather.reducer';
 import { Store } from "@ngrx/store";
 
@@ -19,14 +19,30 @@ export class WeatherEffects {
 
   ) {}
 
-  loadMovies$ = createEffect(() =>
+  loadConditionss$ = createEffect(() =>
     this.actions$.pipe(
       ofType(GetConditionsByKey),
-      switchMap( (action) => (this.apiService.getConditionBykey(action.key))
+      mergeMap( (action) => (this.apiService.getConditionBykey(action.key))
         .pipe(
           map(response => {
             this.store$.dispatch(SetError({message: ''}));
-            return { type: weatherActionsType.loaddedSuccessCondition, payload: response}
+            return { type: weatherActionsType.loaddedSuccessCondition, payload: {response: response[0], key: action.key}}
+          }),
+          catchError((error) => of({ type: weatherActionsType.apiError, payload: error })),
+          finalize(() => this.store$.dispatch(SetLoading({value: false})))
+        )
+      )
+    )
+  );
+
+  loadLocation$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(GetLocationByKey),
+      mergeMap( (action) => (this.apiService.getLocationBykey(action.key))
+        .pipe(
+          map(response => {
+            this.store$.dispatch(SetError({message: ''}));
+            return { type: weatherActionsType.loaddedSuccessLocation, payload: response}
           }),
           catchError((error) => of({ type: weatherActionsType.apiError, payload: error })),
           finalize(() => this.store$.dispatch(SetLoading({value: false})))

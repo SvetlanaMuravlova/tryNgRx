@@ -32,4 +32,13 @@ export class ApiService {
       }
     })
   }
+
+  getLocationBykey(key: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/locations/v1/${key}`, {
+      params: {
+        apikey: this.key,
+        details: 'true'
+      }
+    })
+  }
 }

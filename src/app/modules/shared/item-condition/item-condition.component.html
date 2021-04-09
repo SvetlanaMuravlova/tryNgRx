@@ -1,0 +1,15 @@
+<div class="item-box" *ngIf="item">
+    <p-card [header]="getTitleOfCard()" [subheader]="getDate()" [style]="{width: '100%'}" styleClass="p-card-shadow">
+        <div class="img_box">
+            <img alt="Card" [src]="initeImgUrl(item.WeatherIcon)">
+            <p>{{item.WeatherText}}</p>
+        </div>
+        <div class="information_box">
+            <p>current t {{item.Temperature.Metric.Value}} &deg;C</p>
+            <p>Wind {{item.Wind.Speed.Metric.Value}} {{item.Wind.Speed.Metric.Unit}}</p>
+        </div>
+        <ng-template pTemplate="footer">
+            <p-button label="Delete" icon="pi pi-trash" styleClass="p-button-secondary"></p-button>
+        </ng-template>
+    </p-card>
+</div>

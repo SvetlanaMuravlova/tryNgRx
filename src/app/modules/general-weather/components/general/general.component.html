@@ -1,8 +1,17 @@
-<!-- <button pButton pRipple type="button" label="Primary" (click)='onClickBtn()'></button> -->
-<!-- <p-button label="Submit" icon="pi pi-check" iconPos="right"></p-button> -->
-<div class="container">
+<div class="container" *ngIf="conditions$ | async">
     <div class="row">
         <h1>Your honest weather guide <i class="pi pi-fw pi-sun"></i></h1>
         <app-auto-complete></app-auto-complete>
+        <h3>Current conditions for your locations</h3>
+        <p>date: {{state.date | date: 'MMM d, y'}}</p>
+        <div class="main row">
+            <app-item-condition 
+            class="col-4"
+            *ngFor="let item of objectKeys(list)"
+            [item]="list[item]"
+            [location]="generalLocations[item]"
+            >
+            </app-item-condition>
+        </div>
     </div>
 </div>

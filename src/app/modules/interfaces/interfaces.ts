@@ -46,7 +46,7 @@ export interface ICondition {
 }
 
 interface IMetric {
-    Value: string;
+    Value: number;
     Unit: string;
 }
 
