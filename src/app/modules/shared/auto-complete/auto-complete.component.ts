@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChildren, ElementRef, QueryList } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ApiService } from '@services/api.service';
 import { catchError, finalize } from 'rxjs/operators';
 import { of } from 'rxjs';
@@ -11,6 +11,7 @@ import { CommonService } from '@services/common.service';
   styleUrls: ['./auto-complete.component.scss']
 })
 export class AutoCompleteComponent implements OnInit {
+  @Input() type: string;
   value: string;
   placeHolder = 'pi pi-search'
   disabled = false;

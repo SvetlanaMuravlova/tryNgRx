@@ -20,7 +20,8 @@
       "@modules/*": ["src/app/modules/*"],
       "@services/*": ["src/app/services/*"],
       "@generalStore/*": ["src/app/modules/general-weather/store/general-weather/*"],
-      "@interfaces/*": ["src/app/interfaces/*"]
+      "@interfaces/*": ["src/app/interfaces/*"],
+      "@fav-cities/*": ["src/app/modules/favourite-cities/store/favourite-cities/*"]
     }
   }
 }

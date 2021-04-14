@@ -5,16 +5,16 @@
             [type]="type"
         ></app-auto-complete
             >
-        <h3>Current conditions for your locations</h3>
-        <p>date: {{state.date | date: 'MMM d, y'}}</p>
+        <h3>Current conditions for your favourite locations</h3>
+        <!-- <p>date: {{state.date | date: 'MMM d, y'}}</p> -->
         <div class="main row">
-            <app-item-condition 
+            <!-- <app-item-condition 
             class="col-4"
             *ngFor="let item of objectKeys(list)"
             [item]="list[item]"
             [location]="generalLocations[item]"
             >
-            </app-item-condition>
+            </app-item-condition> -->
         </div>
     </div>
 </div>

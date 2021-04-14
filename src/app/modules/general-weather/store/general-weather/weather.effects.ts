@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { map, mergeMap, catchError, exhaustMap, switchMap, finalize } from 'rxjs/operators';
 import { ApiService } from '@services/api.service';
-import { weatherActionsType,  GetConditionsByKey, SetLoading, SetError, GetLocationByKey } from './weather.actions';
+import { weatherActionsType,  GetConditionsByKey, SetLoading, SetError, GetLocationByKey } from '@generalStore/weather.actions';
 import { IweatherState } from '@generalStore/weather.reducer';
 import { Store } from "@ngrx/store";
 

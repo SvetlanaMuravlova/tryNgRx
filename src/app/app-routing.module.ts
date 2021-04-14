@@ -9,9 +9,14 @@ const routes: Routes = [
         path: '',
         pathMatch: 'full',
         loadChildren: () => import('./modules/general-weather/general-weather.module').then(m => m.GeneralWeatherModule)
-      },
+      }
+    ]
+  },
+  {
+    path: 'favourite',
+    children:[
       {
-        path: 'favourite',
+        path: '',
         pathMatch: 'full',
         loadChildren: () => import('./modules/favourite-cities/favourite-cities.module').then(m => m.FavouriteCitiesModule)
       }
