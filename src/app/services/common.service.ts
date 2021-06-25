@@ -23,7 +23,7 @@ export class CommonService {
     } else {
       this.subscribeOnStoreGeneralLocations();
     }
-    
+
   }
 
   initGeneralLocation(value: string[]) {
@@ -36,13 +36,14 @@ export class CommonService {
     }
   }
 
-  addGeneralLocation(key: string) {
-    if(!this.currentLocations.general.includes(key)) {
+  addGeneralLocation(key: string): void {
+    console.log('general list', this.currentLocations)
+    if (!this.currentLocations.general.includes(key)) {
       if (this.currentLocations.general && this.currentLocations.general.length > 2) {
         this.currentLocations.general.unshift(key);
-        this.currentLocations.general.splice(this.currentLocations.general.length-1, 1)
+        this.currentLocations.general.splice(this.currentLocations.general.length - 1, 1);
       } else {
-        this.currentLocations.general.push(key)
+        this.currentLocations.general.push(key);
       }
       this.updateStoreWithGeneralLocations(this.currentLocations.general);
     }
@@ -57,8 +58,8 @@ export class CommonService {
     })
   }
 
-  updateStoreWithGeneralLocations(value: string[]) {
-    this.store$.dispatch(AddKeyLocation({keys: value}))
+  updateStoreWithGeneralLocations(value: string[]): void {
+    this.store$.dispatch(AddKeyLocation({keys: value}));
   }
 
   saveLocations() {
@@ -72,6 +73,4 @@ export class CommonService {
   getSessionLocations() {
     return JSON.parse(window.sessionStorage.getItem('WeatherLocations'));
   }
-
-  
 }

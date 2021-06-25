@@ -4,7 +4,6 @@ export enum weatherActionsType {
     add = '[WEATHER] add location',
     getConditions = '[WEATHER] get condition by key',
     loaddedSuccessCondition = '[WEATHER] conditions by key loadded success',
-    apiError = '[WEATHER] api error',
     loading = '[WEATHER] loading spinner',
     getLocation = '[WEATHER] get location by key',
     loaddedSuccessLocation = '[WEATHER] location by key loadded success',
@@ -28,11 +27,6 @@ export const LocationLoaddedSuccess = createAction(
 export const ConditionLoaddedSuccess = createAction(
     weatherActionsType.loaddedSuccessCondition,
     props<{payload: any}>()
-);
-
-export const SetError = createAction(
-    weatherActionsType.apiError,
-    props<{message: string}>()
 );
 
 export const SetLoading = createAction(

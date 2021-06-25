@@ -8,8 +8,13 @@ import {CardModule} from 'primeng/card';
 import {ButtonModule} from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
 import { EffectsModule } from '@ngrx/effects';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { MenubarModule } from 'primeng/menubar';
+import { ErrorComponent } from './error/error.component';
+import { ModalModule } from 'ngx-bootstrap/modal';
+
 @NgModule({
-  declarations: [AutoCompleteComponent, ItemConditionComponent],
+  declarations: [AutoCompleteComponent, ItemConditionComponent, NavBarComponent, ErrorComponent],
   imports: [
     CommonModule,
     InputTextModule,
@@ -17,11 +22,15 @@ import { EffectsModule } from '@ngrx/effects';
     CardModule,
     ButtonModule,
     RippleModule,
-    EffectsModule
+    EffectsModule,
+    MenubarModule,
+    ModalModule.forRoot()
   ],
-  exports:[
+  exports: [
     AutoCompleteComponent,
-    ItemConditionComponent
-  ],
+    ItemConditionComponent,
+    NavBarComponent,
+    ErrorComponent
+  ]
 })
 export class SharedModule { }

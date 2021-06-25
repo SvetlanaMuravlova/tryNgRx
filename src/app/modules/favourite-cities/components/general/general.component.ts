@@ -31,7 +31,7 @@ export class GeneralComponent implements OnInit {
     private store$: Store<IFavCitiesState>,
     // public commonService: CommonService,
     public apiService: ApiService
-  ) { 
+  ) {
     this.currentState$.subscribe(res => {
       this.state = res;
     })
@@ -45,7 +45,6 @@ export class GeneralComponent implements OnInit {
     // let keysObserv = [];
     // console.log(this.state.keys[0]);
     this.state.keys.forEach(key => {
-      console.log(key)
       // keysObserv.push(this.apiService.getConditionBykey(key));
       // this.store$.dispatch(GetLocationByKey({key}))
       // this.store$.dispatch(GetConditionsByKey({key}))

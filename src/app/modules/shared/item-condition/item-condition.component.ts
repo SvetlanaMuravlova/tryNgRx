@@ -15,14 +15,14 @@ import { weatherSelector } from '@generalStore/weather.selectors';
   providers: [DatePipe]
 })
 export class ItemConditionComponent implements OnInit {
-  @Input() item: ICondition;
+  @Input() item: any;
   @Input() location: any;
   // conditions$: Observable<IweatherState> = this.store$.pipe(select(weatherSelector));
   // state;
   constructor(
     private datePipe: DatePipe,
     private store$: Store<IweatherState>
-  ) { 
+  ) {
     // this.conditions$.subscribe(res => {
     //   this.state = res;
     //   console.log('item state',res)
@@ -30,14 +30,14 @@ export class ItemConditionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.item)
-    console.log(this.location)
+    console.log('ITEM', this.item);
+    // console.log(this.location)
 
   }
 
   initeImgUrl(icon: number): string {
-    let number = icon < 10 ? `0${icon}` : icon;
-    return `https://developer.accuweather.com/sites/default/files/${number}-s.png`
+    const iconNum = icon < 10 ? `0${icon}` : icon;
+    return `https://developer.accuweather.com/sites/default/files/${iconNum}-s.png`;
   }
 
   getTitleOfCard(): string {

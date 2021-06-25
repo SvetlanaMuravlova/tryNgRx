@@ -11,11 +11,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EffectsModule } from '@ngrx/effects';
 import { WeatherEffects } from '@generalStore/weather.effects';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import {MenubarModule} from 'primeng/menubar';
 import { HeadersInterceptor } from 'src/app/interceptors/headers-interceptor';
+import { ErrorsInterceptor } from './interceptors/error-interceptor';
+import { SharedModule } from './modules/shared/shared.module';
+
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,13 +33,18 @@ import { HeadersInterceptor } from 'src/app/interceptors/headers-interceptor';
     StoreRouterConnectingModule.forRoot(),
     EffectsModule.forRoot([WeatherEffects]),
     HttpClientModule,
-    MenubarModule
+    SharedModule
   ],
   providers: [
     [
       {
         provide: HTTP_INTERCEPTORS,
         useClass: HeadersInterceptor,
+        multi: true
+      },
+      {
+        provide: HTTP_INTERCEPTORS,
+        useClass: ErrorsInterceptor,
         multi: true
       }
     ]

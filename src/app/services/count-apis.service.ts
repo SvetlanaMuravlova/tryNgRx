@@ -9,34 +9,35 @@ export class CountApisService {
   value = {
     amount: 0,
     date: `${new Date().getDate()}${new Date().getMonth()}${new Date().getFullYear()}`
-  }
-  valueSource: BehaviorSubject<number> = new BehaviorSubject(this.value.amount)
-  constructor() { 
-    this.initAmount()
+  };
+  valueSource: BehaviorSubject<number> = new BehaviorSubject(this.value.amount);
+
+  constructor() {
+    this.initAmount();
   }
 
   set amount(value) {
     window.sessionStorage.setItem(this.SESSION_KEY, JSON.stringify(value));
   }
 
-  initAmount() {
-    if(this.amount && 
+  initAmount(): void {
+    if (this.amount &&
       this.amount.date === this.value.date){
         this.value = this.amount;
     }
 
-    if (!this.amount || 
+    if (!this.amount ||
     (this.amount && this.amount.date !== this.value.date)) {
       this.amount = this.value;
     }
     this.valueSource.next(this.value.amount);
   }
 
-  get amount() {
-    return JSON.parse(window.sessionStorage.getItem(this.SESSION_KEY))
+  get amount(): { amount: number; date: string; } {
+    return JSON.parse(window.sessionStorage.getItem(this.SESSION_KEY));
   }
 
-  updateAmount() {
+  updateAmount(): void {
     this.value.amount ++;
     this.valueSource.next(this.value.amount);
     this.amount = this.value;

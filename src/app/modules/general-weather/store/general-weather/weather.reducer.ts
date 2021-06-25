@@ -1,25 +1,18 @@
-import { currentCondition } from '@modules/staticInformation/currentConditions';
 import { weatherActionsType } from './weather.actions';
-import { ICondition } from '@interfaces/interfaces';
-import { state } from '@angular/animations';
 
 export const WEATHER_REDUCER_NODE = 'weather';
 
 export interface IweatherState  {
     date: string;
-    list: any;
     keys: string[];
     loading: boolean;
-    error: string;
-    generalLocations:any
+    generalLocations: any;
 }
 
 const intialStateCurrentConditions: IweatherState = {
     date: new Date().toString(),
-    list: {},
     keys: ['323903', '324505', '325343'],
     loading: false,
-    error: '',
     generalLocations: {
         323903: {
             Type: "City",
@@ -51,49 +44,31 @@ const intialStateCurrentConditions: IweatherState = {
     }
 }
 
-export const weatherReducer = (state:IweatherState  = intialStateCurrentConditions, action) => {
+export const weatherReducer = (incomState: IweatherState  = intialStateCurrentConditions, action) => {
     switch (action.type) {
         case weatherActionsType.add:
-            return {
-                ... state,
+          return {
+                ... incomState,
                 keys: action.keys
-            }
-            break;
+            };
+          break;
         case weatherActionsType.loaddedSuccessCondition:
-            console.log('Reducer', state, action)
             return {
-                ...state,
-                list: {
-                    ...state.list,
-                    [action.payload.key]: editeCondition(action.payload.response)
-                }
-            }
+                ...incomState,
+              generalLocations: editegeneralLocationConditions(incomState, action)
+            };
             break;
 
-        case weatherActionsType.apiError:
-        // console.log('Reducer', state, action)
-        return state
-        break;
         case weatherActionsType.loaddedSuccessLocation:
-        // console.log('Reducer', weatherActionsType.loaddedSuccessLocation , state, action)
         return {
-            ... state,
-            generalLocations: {
-                ... state.generalLocations,
-                [action.payload.Key]: editeLocation(action.payload)
-            }
+            ... incomState,
+            generalLocations: editeGeneralLocations(incomState, action)
         }
         break;
         default:
-            return state
+            return incomState;
     }
-}
-
-// function initeGeneralLocation(value) {
-//     return {
-
-//     }
-// }
+};
 
 function editeLocation(value) {
     return {
@@ -105,6 +80,13 @@ function editeLocation(value) {
             Latitude: value.GeoPosition.Latitude
         }
     }
+}
+
+function editeGeneralLocations(incomState, action) {
+  return {
+    ... incomState.generalLocations,
+    [action.payload.Key]: editeLocation(action.payload)
+  };
 }
 
 function editeCondition(value) {
@@ -124,5 +106,15 @@ function editeCondition(value) {
             }
         },
         LocalObservationDateTime: value.LocalObservationDateTime
+    };
+}
+
+function editegeneralLocationConditions(incomState, action) {
+  return {
+    ...incomState.generalLocations,
+    [action.payload.key]: {
+      ...incomState.generalLocations[action.payload.key],
+      conditions: editeCondition(action.payload.response)
     }
+  };
 }

@@ -1,22 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { of } from 'rxjs';
-import { map, mergeMap, catchError, exhaustMap, switchMap, finalize } from 'rxjs/operators';
+import { map, mergeMap, finalize } from 'rxjs/operators';
 import { ApiService } from '@services/api.service';
-import { weatherActionsType,  GetConditionsByKey, SetLoading, SetError, GetLocationByKey } from '@generalStore/weather.actions';
+import { weatherActionsType,  GetConditionsByKey, SetLoading, GetLocationByKey } from '@generalStore/weather.actions';
 import { IweatherState } from '@generalStore/weather.reducer';
-import { Store } from "@ngrx/store";
+import { Store } from '@ngrx/store';
+import { CountApisService } from '@services/count-apis.service';
 
 
 @Injectable()
 
 export class WeatherEffects {
- 
+
   constructor(
     private actions$: Actions,
     private apiService: ApiService,
     private store$: Store<IweatherState>,
-
+    private apiCounts: CountApisService
   ) {}
 
   loadConditionss$ = createEffect(() =>
@@ -25,10 +25,9 @@ export class WeatherEffects {
       mergeMap( (action) => (this.apiService.getConditionBykey(action.key))
         .pipe(
           map(response => {
-            this.store$.dispatch(SetError({message: ''}));
-            return { type: weatherActionsType.loaddedSuccessCondition, payload: {response: response[0], key: action.key}}
+            this.apiCounts.updateAmount();
+            return { type: weatherActionsType.loaddedSuccessCondition, payload: {response: response[0], key: action.key}};
           }),
-          catchError((error) => of({ type: weatherActionsType.apiError, payload: error })),
           finalize(() => this.store$.dispatch(SetLoading({value: false})))
         )
       )
@@ -41,10 +40,9 @@ export class WeatherEffects {
       mergeMap( (action) => (this.apiService.getLocationBykey(action.key))
         .pipe(
           map(response => {
-            this.store$.dispatch(SetError({message: ''}));
-            return { type: weatherActionsType.loaddedSuccessLocation, payload: response}
+            this.apiCounts.updateAmount();
+            return { type: weatherActionsType.loaddedSuccessLocation, payload: response};
           }),
-          catchError((error) => of({ type: weatherActionsType.apiError, payload: error })),
           finalize(() => this.store$.dispatch(SetLoading({value: false})))
         )
       )

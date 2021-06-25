@@ -1,12 +1,12 @@
-<div class="item-box" *ngIf="item">
+<div class="item-box" *ngIf="item && item.conditions">
     <p-card [header]="getTitleOfCard()" [subheader]="getDate()" [style]="{width: '100%'}" styleClass="p-card-shadow">
         <div class="img_box">
-            <img alt="Card" [src]="initeImgUrl(item.WeatherIcon)">
-            <p>{{item.WeatherText}}</p>
+            <img alt="Card" [src]="initeImgUrl(item.conditions.WeatherIcon)">
+            <p>{{item.conditions.WeatherText}}</p>
         </div>
         <div class="information_box">
-            <p>current t {{item.Temperature.Metric.Value}} &deg;C</p>
-            <p>Wind {{item.Wind.Speed.Metric.Value}} {{item.Wind.Speed.Metric.Unit}}</p>
+            <p>current t {{item.conditions.Temperature.Metric.Value}} &deg;C</p>
+            <p>Wind {{item.conditions.Wind.Speed.Metric.Value}} {{item.conditions.Wind.Speed.Metric.Unit}}</p>
         </div>
         <ng-template pTemplate="footer">
             <p-button label="Delete" icon="pi pi-trash" styleClass="p-button-secondary"></p-button>

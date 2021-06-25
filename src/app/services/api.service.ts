@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import {map} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class ApiService {
         apikey: this.key,
         details: 'true'
       }
-    })
+    });
   }
 
   getLocationByAutoComplete(value: string): Observable<any> {
@@ -29,7 +30,7 @@ export class ApiService {
         details: 'true',
         q: value
       }
-    })
+    });
   }
 
   getLocationBykey(key: string): Observable<any> {
@@ -38,6 +39,6 @@ export class ApiService {
         apikey: this.key,
         details: 'true'
       }
-    })
+    });
   }
 }
