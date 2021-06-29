@@ -8,7 +8,7 @@ import {
   GWKeysSelector
 } from '@generalStore/weather.selectors';
 import { Observable } from 'rxjs';
-import { CommonService } from '@services/common.service';
+import { CommonForGeneralLocationsService } from '@services/common.service';
 import { ApiService } from '@services/api.service';
 import { ICondition } from '@interfaces/interfaces';
 
@@ -30,10 +30,12 @@ export class GeneralComponent implements OnInit {
 
   constructor(
     private store$: Store<IweatherState>,
-    public apiService: ApiService
+    public apiService: ApiService,
+    public generalServ: CommonForGeneralLocationsService
   ) {
     this.conditions$.subscribe(res => {
       this.state = res;
+      console.log('general state', this.state);
     });
 
     this.generalLocations$.subscribe(res => {
@@ -41,12 +43,12 @@ export class GeneralComponent implements OnInit {
     });
 
     this.keys$.subscribe(res => {
-      this.checkForKeysChanges();
+      // this.checkForKeysChanges();
     });
   }
 
   ngOnInit(): void {
-    this.getConditions();
+    // this.getConditions();
   }
 
   getConditions(): void {
@@ -63,9 +65,7 @@ export class GeneralComponent implements OnInit {
       return;
     }
     if (JSON.stringify(this.state.keys) !== JSON.stringify(conditionsKeys)) {
-      console.log('need update')
       const key = this.state.keys.find(keyItem => !conditionsKeys.includes(keyItem));
-      console.log('key for update', key);
       this.store$.dispatch(GetLocationByKey({ key }));
       this.store$.dispatch(GetConditionsByKey({ key }));
     }

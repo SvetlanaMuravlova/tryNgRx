@@ -1,7 +1,7 @@
 import { Action, createAction, props } from "@ngrx/store";
 
 export enum weatherActionsType {
-    add = '[WEATHER] add location',
+    updateKeys = '[WEATHER] add key',
     getConditions = '[WEATHER] get condition by key',
     loaddedSuccessCondition = '[WEATHER] conditions by key loadded success',
     loading = '[WEATHER] loading spinner',
@@ -34,7 +34,7 @@ export const SetLoading = createAction(
     props<{value: boolean}>()
 );
 
-export const AddKeyLocation = createAction(
-    weatherActionsType.add,
+export const UpdateKeysLocation = createAction(
+    weatherActionsType.updateKeys,
     props<{keys: string[]}>()
 );

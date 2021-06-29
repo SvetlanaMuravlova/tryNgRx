@@ -10,7 +10,8 @@ import {ButtonModule} from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
 import { EffectsModule } from '@ngrx/effects';
 import { WeatherEffects } from '@generalStore/weather.effects';
-import { SharedModule } from '@modules/shared/shared.module'
+import { SharedModule } from '@modules/shared/shared.module';
+
 @NgModule({
   declarations: [GeneralComponent],
   imports: [
@@ -21,7 +22,7 @@ import { SharedModule } from '@modules/shared/shared.module'
     RippleModule,
     EffectsModule.forFeature([WeatherEffects]),
     HttpClientModule,
-    SharedModule
+    SharedModule,
   ]
 })
 export class GeneralWeatherModule { }

@@ -8,7 +8,7 @@ import { currentStateSelector } from '@fav-cities/favourite-cities.selectors';
 // import {GetConditionsByKey, GetLocationByKey } from '@generalStore/weather.actions'
 // import { weatherSelector, GWConditionsListSelector, GWLocationsSelector } from '@generalStore/weather.selectors';
 import { Observable } from 'rxjs';
-import { CommonService } from '@services/common.service';
+// import { CommonService } from '@services/common.service';
 import { ApiService } from '@services/api.service';
 import { ICondition } from '@interfaces/interfaces';
 

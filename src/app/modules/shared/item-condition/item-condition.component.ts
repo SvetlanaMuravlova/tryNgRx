@@ -30,7 +30,7 @@ export class ItemConditionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('ITEM', this.item);
+    // console.log('ITEM', this.item);
     // console.log(this.location)
 
   }

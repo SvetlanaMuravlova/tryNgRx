@@ -3,7 +3,7 @@ import { ApiService } from '@services/api.service';
 import { catchError, finalize } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { IAutoCompleteItem } from '@interfaces/interfaces';
-import { CommonService } from '@services/common.service';
+import { CommonForGeneralLocationsService } from '@services/common.service';
 import { CountApisService } from '@services/count-apis.service';
 
 @Component({
@@ -20,7 +20,7 @@ export class AutoCompleteComponent implements OnInit {
 
   constructor(
     public apiService: ApiService,
-    public commonServ: CommonService,
+    public commonServ: CommonForGeneralLocationsService,
     private apiCounts: CountApisService
   ) { }
 
@@ -52,7 +52,6 @@ export class AutoCompleteComponent implements OnInit {
 
   addAddresse(item: IAutoCompleteItem): void {
     this.value = `${item.Type}, ${item.LocalizedName}, ${item.Country.LocalizedName}`;
-    console.log('key to add', item.Key)
     this.commonServ.addGeneralLocation(item.Key);
     this.items = [];
   }

@@ -2,75 +2,90 @@ import { Injectable} from '@angular/core';
 import { Subscription } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { IweatherState } from '@generalStore/weather.reducer';
-import { GWLocationsKeySelector } from '@generalStore/weather.selectors';
-import { AddKeyLocation } from '@generalStore/weather.actions'
+import { GWLocationsKeySelector, GWLocationsSelector } from '@generalStore/weather.selectors';
+import {GetConditionsByKey, GetLocationByKey, SetLoading, UpdateKeysLocation} from '@generalStore/weather.actions';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CommonService {
+export class CommonForGeneralLocationsService {
   generalLocations$: Subscription;
-  currentLocations = {
-    general: [],
-    favourite: []
-  }
+  keysGeneralLocation: string[];
+  KEY_FOR_GENERAL_LOCATIONS = 'GeneralWeatherLocations';
 
   constructor(
     private store$: Store<IweatherState>,
   ) {
     if (this.checkSessionLocations()) {
-      this.initGeneralLocation(this.getSessionLocations().general);
+      this.initGeneralLocation(this.getGeneralLocations());
     } else {
       this.subscribeOnStoreGeneralLocations();
     }
-
   }
 
-  initGeneralLocation(value: string[]) {
-    this.currentLocations.general = value;
-
-    this.updateStoreWithGeneralLocations(value);
-    this.saveLocations();
+  initGeneralLocation(value: string[]): void {
+    this.keysGeneralLocation = value;
+    this.saveGeneralLocations();
+    this.updateStoreWithGeneralKeys();
+    console.log('Subscription', this.generalLocations$);
     if (!this.generalLocations$) {
       this.subscribeOnStoreGeneralLocations();
     }
   }
 
   addGeneralLocation(key: string): void {
-    console.log('general list', this.currentLocations)
-    if (!this.currentLocations.general.includes(key)) {
-      if (this.currentLocations.general && this.currentLocations.general.length > 2) {
-        this.currentLocations.general.unshift(key);
-        this.currentLocations.general.splice(this.currentLocations.general.length - 1, 1);
-      } else {
-        this.currentLocations.general.push(key);
-      }
-      this.updateStoreWithGeneralLocations(this.currentLocations.general);
+    if (!this.keysGeneralLocation.includes(key)) {
+      this.keysGeneralLocation.push(key);
+      this.updateStoreWithGeneralKeys();
     }
   }
 
-  subscribeOnStoreGeneralLocations() {
+  subscribeOnStoreGeneralLocations(): void {
     this.generalLocations$ = this.store$.pipe(select(GWLocationsKeySelector)).subscribe(res => {
       if (res && res.length) {
-        this.currentLocations.general = Object.assign([], res);
-        this.saveLocations();
+        console.log('common service keys', res);
+        this.keysGeneralLocation = Object.assign([], res);
+        this.checkStoreGeneralLocationsWithKeys();
+        this.saveGeneralLocations();
       }
-    })
+    });
   }
 
-  updateStoreWithGeneralLocations(value: string[]): void {
-    this.store$.dispatch(AddKeyLocation({keys: value}));
+  updateStoreWithGeneralKeys(): void {
+    this.store$.dispatch(UpdateKeysLocation({keys: this.keysGeneralLocation}));
   }
 
-  saveLocations() {
-    window.sessionStorage.setItem('WeatherLocations', JSON.stringify(this.currentLocations))
+  getGeneralLocationWithKey(key: string): void {
+    this.setLoading(true);
+    this.store$.dispatch(GetLocationByKey({ key }));
+    this.store$.dispatch(GetConditionsByKey({ key }));
+  }
+
+  checkStoreGeneralLocationsWithKeys(): void {
+    this.generalLocations$ = this.store$.pipe(select(GWLocationsSelector)).subscribe(res => {
+      console.log('general locations common service', res);
+      const keyForUpdating = this.keysGeneralLocation.find(key => !res?.[key]);
+      if (!keyForUpdating) {
+        return;
+      }
+
+      this.getGeneralLocationWithKey(keyForUpdating);
+    });
+  }
+
+  saveGeneralLocations(): void {
+    window.sessionStorage.setItem(this.KEY_FOR_GENERAL_LOCATIONS, JSON.stringify(this.keysGeneralLocation));
   }
 
   checkSessionLocations(): boolean {
-    return !!window.sessionStorage.getItem('WeatherLocations')
+    return !!window.sessionStorage.getItem(this.KEY_FOR_GENERAL_LOCATIONS);
   }
 
-  getSessionLocations() {
-    return JSON.parse(window.sessionStorage.getItem('WeatherLocations'));
+  getGeneralLocations(): string[] {
+    return JSON.parse(window.sessionStorage.getItem(this.KEY_FOR_GENERAL_LOCATIONS));
+  }
+
+  setLoading(value): void {
+    this.store$.dispatch(SetLoading({value}));
   }
 }

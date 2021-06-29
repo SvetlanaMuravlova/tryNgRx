@@ -12,9 +12,11 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { MenubarModule } from 'primeng/menubar';
 import { ErrorComponent } from './error/error.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @NgModule({
-  declarations: [AutoCompleteComponent, ItemConditionComponent, NavBarComponent, ErrorComponent],
+  declarations: [AutoCompleteComponent, ItemConditionComponent, NavBarComponent, ErrorComponent, LoadingSpinnerComponent],
   imports: [
     CommonModule,
     InputTextModule,
@@ -24,13 +26,15 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     RippleModule,
     EffectsModule,
     MenubarModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    ProgressSpinnerModule
   ],
   exports: [
     AutoCompleteComponent,
     ItemConditionComponent,
     NavBarComponent,
-    ErrorComponent
+    ErrorComponent,
+    LoadingSpinnerComponent
   ]
 })
 export class SharedModule { }

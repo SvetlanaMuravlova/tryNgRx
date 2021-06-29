@@ -1,7 +1,7 @@
 html {
     scroll-behavior: smooth;
   }
-  
+
   body {
     font-size: 14px;
     overflow-y: scroll;
@@ -10,25 +10,25 @@ html {
     margin: 0;
     font-family: 'Montserrat', sans-serif;
     background-color: $light-grey;
-  
+
     @include media-breakpoint-down(sm) {
       font-size: 12px;
     }
   }
-  
+
   body::-webkit-scrollbar {
     display: none;
   }
-  
+
   html, body, .min-h_100 {
     height: fit-content;
     min-height: 100%;
   }
-  
+
   [role=button] {
     cursor: pointer;
   }
-  
+
   .text-bold {
     font-weight: bold;
   }
@@ -74,3 +74,40 @@ h3 {
     margin-bottom: 0;
   }
 }
+
+.p-card {
+  height: 100%;
+}
+
+.back_drop {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.5);
+  top: 0;
+  left: 0;
+  z-index: 100;
+
+  .p-progress-spinner {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@keyframes p-progress-spinner-color {
+  100%,
+  0% {
+    stroke: #d62d20;
+  }
+  40% {
+    stroke: #d62d20;
+  }
+  66% {
+    stroke: #d62d20;
+  }
+  80%,
+  90% {
+    stroke: #d62d20;
+  }
+}
+

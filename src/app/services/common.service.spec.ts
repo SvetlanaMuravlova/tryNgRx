@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CommonService } from './common.service';
+import { CommonForGeneralLocationsService } from './common.service';
 
 describe('CommonService', () => {
-  let service: CommonService;
+  let service: CommonForGeneralLocationsService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(CommonService);
+    service = TestBed.inject(CommonForGeneralLocationsService);
   });
 
   it('should be created', () => {

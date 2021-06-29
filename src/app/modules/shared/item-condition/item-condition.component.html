@@ -1,4 +1,4 @@
-<div class="item-box" *ngIf="item && item.conditions">
+<div class="item-box h-100" *ngIf="item && item.conditions">
     <p-card [header]="getTitleOfCard()" [subheader]="getDate()" [style]="{width: '100%'}" styleClass="p-card-shadow">
         <div class="img_box">
             <img alt="Card" [src]="initeImgUrl(item.conditions.WeatherIcon)">

@@ -6,47 +6,19 @@ export interface IweatherState  {
     date: string;
     keys: string[];
     loading: boolean;
-    generalLocations: any;
+    generalLocations?: any;
 }
 
 const intialStateCurrentConditions: IweatherState = {
     date: new Date().toString(),
     keys: ['323903', '324505', '325343'],
-    loading: false,
-    generalLocations: {
-        323903: {
-            Type: "City",
-            LocalizedName: "Kharkiv",
-            Country: "Ukraine",
-            GeoPosition: {
-                Longitude: '11111',
-                Latitude: '111111'
-            }
-        },
-        324505: {
-            Type: "City",
-            LocalizedName: "Kharkiv",
-            Country: "Ukraine",
-            GeoPosition: {
-                Longitude: '11111',
-                Latitude: '111111'
-            }
-        },
-        325343: {
-            Type: "City",
-            LocalizedName: "Kharkiv",
-            Country: "Ukraine",
-            GeoPosition: {
-                Longitude: '11111',
-                Latitude: '111111'
-            }
-        }
-    }
+    loading: false
 }
 
 export const weatherReducer = (incomState: IweatherState  = intialStateCurrentConditions, action) => {
     switch (action.type) {
-        case weatherActionsType.add:
+        case weatherActionsType.updateKeys:
+          console.log('key reducer add', action.keys);
           return {
                 ... incomState,
                 keys: action.keys
@@ -63,7 +35,7 @@ export const weatherReducer = (incomState: IweatherState  = intialStateCurrentCo
         return {
             ... incomState,
             generalLocations: editeGeneralLocations(incomState, action)
-        }
+        };
         break;
         default:
             return incomState;
@@ -79,7 +51,7 @@ function editeLocation(value) {
             Longitude: value.GeoPosition.Longitude,
             Latitude: value.GeoPosition.Latitude
         }
-    }
+    };
 }
 
 function editeGeneralLocations(incomState, action) {
