@@ -1,5 +1,5 @@
 (function() {
-  const pathSegmentsToKeep = 1;
+  const pathSegmentsToKeep = 0;
   const l = window.location;
   l.replace(
     l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
