@@ -12,12 +12,12 @@
           class="col-4 mb-3"
           *ngFor="let item of objectKeys(generalLocations)"
           [item]="generalLocations[item]"
-          [location]="generalLocations[item]"
+          [key]="item"
         >
         </app-item-condition>
       </div>
     </div>
   </div>
 
-  <app-loading-spinner></app-loading-spinner>
+  <app-loading-spinner *ngIf="loading$ | async"></app-loading-spinner>
 

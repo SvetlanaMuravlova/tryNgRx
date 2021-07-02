@@ -1,39 +1,22 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ICondition } from '@interfaces/interfaces';
+import { Component, Input } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { IweatherState } from '@generalStore/weather.reducer';
-import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { weatherSelector } from '@generalStore/weather.selectors';
-
-
-
+import { Store } from '@ngrx/store';
+import { deleteLocation } from '@generalStore/weather.actions';
 @Component({
   selector: 'app-item-condition',
   templateUrl: './item-condition.component.html',
   styleUrls: ['./item-condition.component.scss'],
   providers: [DatePipe]
 })
-export class ItemConditionComponent implements OnInit {
+export class ItemConditionComponent {
   @Input() item: any;
-  @Input() location: any;
-  // conditions$: Observable<IweatherState> = this.store$.pipe(select(weatherSelector));
-  // state;
+  @Input() key: string;
+
   constructor(
     private datePipe: DatePipe,
     private store$: Store<IweatherState>
-  ) {
-    // this.conditions$.subscribe(res => {
-    //   this.state = res;
-    //   console.log('item state',res)
-    // })
-  }
-
-  ngOnInit(): void {
-    // console.log('ITEM', this.item);
-    // console.log(this.location)
-
-  }
+  ) {}
 
   initeImgUrl(icon: number): string {
     const iconNum = icon < 10 ? `0${icon}` : icon;
@@ -41,11 +24,15 @@ export class ItemConditionComponent implements OnInit {
   }
 
   getTitleOfCard(): string {
-    return `${this.location.Type} ${this.location.LocalizedName}, ${this.location.Country}`
+    return `${this.item.Type} ${this.item.LocalizedName}, ${this.item.Country}`
   }
 
   getDate(): string {
     return this.datePipe.transform(this.item.LocalObservationDateTime, 'EEEE, MMMM d, y')
+  }
+
+  deleteLocation() {
+    this.store$.dispatch(deleteLocation({key: this.key}));
   }
 
 }

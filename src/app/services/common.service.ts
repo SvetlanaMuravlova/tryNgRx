@@ -27,7 +27,6 @@ export class CommonForGeneralLocationsService {
     this.keysGeneralLocation = value;
     this.saveGeneralLocations();
     this.updateStoreWithGeneralKeys();
-    console.log('Subscription', this.generalLocations$);
     if (!this.generalLocations$) {
       this.subscribeOnStoreGeneralLocations();
     }
@@ -43,7 +42,6 @@ export class CommonForGeneralLocationsService {
   subscribeOnStoreGeneralLocations(): void {
     this.generalLocations$ = this.store$.pipe(select(GWLocationsKeySelector)).subscribe(res => {
       if (res && res.length) {
-        console.log('common service keys', res);
         this.keysGeneralLocation = Object.assign([], res);
         this.checkStoreGeneralLocationsWithKeys();
         this.saveGeneralLocations();
@@ -63,7 +61,6 @@ export class CommonForGeneralLocationsService {
 
   checkStoreGeneralLocationsWithKeys(): void {
     this.generalLocations$ = this.store$.pipe(select(GWLocationsSelector)).subscribe(res => {
-      console.log('general locations common service', res);
       const keyForUpdating = this.keysGeneralLocation.find(key => !res?.[key]);
       if (!keyForUpdating) {
         return;

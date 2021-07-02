@@ -9,7 +9,7 @@
             <p>Wind {{item.conditions.Wind.Speed.Metric.Value}} {{item.conditions.Wind.Speed.Metric.Unit}}</p>
         </div>
         <ng-template pTemplate="footer">
-            <p-button label="Delete" icon="pi pi-trash" styleClass="p-button-secondary"></p-button>
+            <p-button label="Delete" icon="pi pi-trash" styleClass="p-button-secondary" (click)="deleteLocation()"></p-button>
         </ng-template>
     </p-card>
 </div>
