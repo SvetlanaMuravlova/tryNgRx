@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { IweatherState } from '@generalStore/weather.reducer';
 import { GWLocationsKeySelector, GWLocationsSelector } from '@generalStore/weather.selectors';
-import {GetConditionsByKey, GetLocationByKey, SetLoading, UpdateKeysLocation} from '@generalStore/weather.actions';
+import { GetConditionsByKey, GetLocationByKey, SetLoading, UpdateKeysLocation } from '@generalStore/weather.actions';
 
 @Injectable({
   providedIn: 'root'

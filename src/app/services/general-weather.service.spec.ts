@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CommonForGeneralLocationsService } from './common.service';
+import { CommonForGeneralLocationsService } from './general-weather.service';
 
 describe('CommonService', () => {
   let service: CommonForGeneralLocationsService;

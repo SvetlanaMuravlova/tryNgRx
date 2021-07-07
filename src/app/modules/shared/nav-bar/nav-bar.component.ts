@@ -35,8 +35,8 @@ export class NavBarComponent implements OnInit, AfterViewChecked, OnDestroy {
         icon: 'pi pi-fw pi-sun'
       },
       {
-        label: 'Favourite locations',
-        url: '/general/favourite',
+        label: 'Forecasts',
+        url: '/forecasts',
         icon: 'pi pi-fw pi-cloud'
       }
     ];

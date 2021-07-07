@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
   {
     path: 'general',
-    children:[
+    children: [
       {
         path: '',
         pathMatch: 'full',
@@ -13,12 +13,12 @@ const routes: Routes = [
     ]
   },
   {
-    path: 'favourite',
-    children:[
+    path: 'forecasts',
+    children: [
       {
         path: '',
         pathMatch: 'full',
-        loadChildren: () => import('./modules/favourite-cities/favourite-cities.module').then(m => m.FavouriteCitiesModule)
+        loadChildren: () => import('./modules/forecasts/forecasts.module').then(m => m.ForecastsModule)
       }
     ]
   },

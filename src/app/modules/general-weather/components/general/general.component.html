@@ -2,7 +2,7 @@
     <div class="row">
       <h1>Your honest weather guide <i class="pi pi-fw pi-sun"></i></h1>
       <app-auto-complete
-        [type]="type"
+        (addGeneralLocation) = "addGeneralLocation($event)"
       ></app-auto-complete
       >
       <h3>Current conditions for your locations</h3>

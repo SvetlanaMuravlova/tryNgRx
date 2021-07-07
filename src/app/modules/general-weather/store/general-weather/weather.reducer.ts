@@ -1,5 +1,10 @@
 import { weatherActionsType } from './weather.actions';
-
+import {
+  editegeneralLocationConditions,
+  editeGeneralLocations,
+  deleteKey,
+  deleteLocation
+} from '../helpers/store-helpers';
 export const WEATHER_REDUCER_NODE = 'weather';
 
 export interface IweatherState  {
@@ -13,7 +18,7 @@ const intialStateCurrentConditions: IweatherState = {
     date: new Date().toString(),
     keys: ['323903', '324505', '325343'],
     loading: false
-}
+};
 
 export const weatherReducer = (incomState: IweatherState  = intialStateCurrentConditions, action) => {
     switch (action.type) {
@@ -51,74 +56,4 @@ export const weatherReducer = (incomState: IweatherState  = intialStateCurrentCo
     }
 };
 
-function editeLocation(value) {
-    return {
-        Type: value.Type,
-        LocalizedName: value.LocalizedName,
-        Country: value.Country.LocalizedName,
-        GeoPosition: {
-            Longitude: value.GeoPosition.Longitude,
-            Latitude: value.GeoPosition.Latitude
-        }
-    };
-}
 
-function editeGeneralLocations(incomState, action) {
-  return {
-    ... incomState.generalLocations,
-    [action.payload.Key]: editeLocation(action.payload)
-  };
-}
-
-function editeCondition(value) {
-    return {
-        WeatherIcon: value.WeatherIcon,
-        WeatherText: value.WeatherText,
-        Temperature: {
-            Metric: {
-                Value: value.Temperature.Metric.Value
-            }
-        },
-        Wind: {
-            Speed: {
-                Metric: {
-                    Value: value.Wind.Speed.Metric.Value
-                }
-            }
-        },
-        LocalObservationDateTime: value.LocalObservationDateTime
-    };
-}
-
-function editegeneralLocationConditions(incomState, action) {
-  return {
-    ...incomState.generalLocations,
-    [action.payload.key]: {
-      ...incomState.generalLocations[action.payload.key],
-      conditions: editeCondition(action.payload.response)
-    }
-  };
-}
-
-function deleteKey(key: string, keys: string[]): string[] {
-    if (!checkMinimalLength(keys)) {
-        return keys;
-    }
-
-    let keysCopy = keys.filter(itemKey => itemKey !== key); 
-    return keysCopy;
-}
-
-function deleteLocation(key: string, generalLocations) {
-    if (!checkMinimalLength(Object.keys(generalLocations))) {
-        return generalLocations;
-    }
-
-    const generalLocationCopy = Object.assign({}, generalLocations);
-    delete generalLocationCopy[key];
-    return generalLocationCopy;
-}
-
-function checkMinimalLength(values: string[]): boolean {
-    return values.length > 3
-}

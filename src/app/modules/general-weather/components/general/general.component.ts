@@ -8,12 +8,11 @@ import {
   GWKLoadingSelector
 } from '@generalStore/weather.selectors';
 import { Observable } from 'rxjs';
-import { CommonForGeneralLocationsService } from '@services/common.service';
+import { CommonForGeneralLocationsService } from '@services/general-weather.service';
 import { ApiService } from '@services/api.service';
 import { ICondition } from '@interfaces/interfaces';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-
 
 @Component({
   selector: 'app-general',
@@ -36,7 +35,7 @@ export class GeneralComponent implements OnDestroy {
   constructor(
     private store$: Store<IweatherState>,
     public apiService: ApiService,
-    public generalServ: CommonForGeneralLocationsService
+    public generalServ: CommonForGeneralLocationsService,
   ) {
     this.conditions$.
     pipe(
@@ -58,6 +57,10 @@ export class GeneralComponent implements OnDestroy {
     pipe(
       takeUntil(this.notDestroy$)
     ).subscribe();
+  }
+
+  addGeneralLocation(key: string): void {
+    this.generalServ.addGeneralLocation(key);
   }
 
   ngOnDestroy(): void {
