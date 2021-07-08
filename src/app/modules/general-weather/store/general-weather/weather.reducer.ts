@@ -18,25 +18,34 @@ const intialStateCurrentConditions: IweatherState = {
 export const weatherReducer = (incomState: IweatherState  = intialStateCurrentConditions, action) => {
     switch (action.type) {
         case weatherActionsType.updateKeys:
-          console.log('key reducer add', action.keys);
           return {
                 ... incomState,
                 keys: action.keys
             };
-          break;
         case weatherActionsType.loaddedSuccessCondition:
             return {
                 ...incomState,
               generalLocations: editegeneralLocationConditions(incomState, action)
             };
-            break;
 
         case weatherActionsType.loaddedSuccessLocation:
-        return {
-            ... incomState,
-            generalLocations: editeGeneralLocations(incomState, action)
-        };
-        break;
+            return {
+                ... incomState,
+                generalLocations: editeGeneralLocations(incomState, action)
+            };
+
+        case weatherActionsType.loading:
+            return {
+                ... incomState,
+                loading: action.value
+            };
+
+        case weatherActionsType.deleteLocation:
+            return {
+                ... incomState,
+                keys: deleteKey(action.key, incomState.keys),
+                generalLocations: deleteLocation(action.key, incomState.generalLocations)
+            };
         default:
             return incomState;
     }
@@ -89,4 +98,27 @@ function editegeneralLocationConditions(incomState, action) {
       conditions: editeCondition(action.payload.response)
     }
   };
+}
+
+function deleteKey(key: string, keys: string[]): string[] {
+    if (!checkMinimalLength(keys)) {
+        return keys;
+    }
+
+    let keysCopy = keys.filter(itemKey => itemKey !== key); 
+    return keysCopy;
+}
+
+function deleteLocation(key: string, generalLocations) {
+    if (!checkMinimalLength(Object.keys(generalLocations))) {
+        return generalLocations;
+    }
+
+    const generalLocationCopy = Object.assign({}, generalLocations);
+    delete generalLocationCopy[key];
+    return generalLocationCopy;
+}
+
+function checkMinimalLength(values: string[]): boolean {
+    return values.length > 3
 }

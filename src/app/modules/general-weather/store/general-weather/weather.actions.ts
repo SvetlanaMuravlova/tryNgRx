@@ -7,6 +7,7 @@ export enum weatherActionsType {
     loading = '[WEATHER] loading spinner',
     getLocation = '[WEATHER] get location by key',
     loaddedSuccessLocation = '[WEATHER] location by key loadded success',
+    deleteLocation = '[WEATHER] delete location'
 }
 
 export const GetConditionsByKey = createAction(
@@ -37,4 +38,9 @@ export const SetLoading = createAction(
 export const UpdateKeysLocation = createAction(
     weatherActionsType.updateKeys,
     props<{keys: string[]}>()
+);
+
+export const deleteLocation = createAction(
+    weatherActionsType.deleteLocation,
+    props<{key: string}>()
 );

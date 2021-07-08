@@ -1,27 +1,32 @@
-import {AfterViewInit, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { IweatherState } from '@generalStore/weather.reducer';
-import {GetConditionsByKey, GetLocationByKey } from '@generalStore/weather.actions';
+import {GetConditionsByKey, GetLocationByKey, SetLoading, deleteLocation} from '@generalStore/weather.actions';
 import {
   weatherSelector,
   GWLocationsSelector,
-  GWKeysSelector
+  GWKLoadingSelector
 } from '@generalStore/weather.selectors';
 import { Observable } from 'rxjs';
 import { CommonForGeneralLocationsService } from '@services/common.service';
 import { ApiService } from '@services/api.service';
 import { ICondition } from '@interfaces/interfaces';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+
 
 @Component({
   selector: 'app-general',
   templateUrl: './general.component.html',
   styleUrls: ['./general.component.scss']
 })
-export class GeneralComponent implements OnInit {
+export class GeneralComponent implements OnDestroy {
   objectKeys = Object.keys;
+
   conditions$: Observable<IweatherState> = this.store$.pipe(select(weatherSelector));
   generalLocations$: Observable<any> = this.store$.pipe(select(GWLocationsSelector));
-  keys$: Observable<string[]> = this.store$.pipe(select(GWKeysSelector));
+  loading$: Observable<boolean> = this.store$.pipe(select(GWKLoadingSelector));
+  notDestroy$ = new Subject();
 
   type = 'general';
   state: IweatherState;
@@ -33,47 +38,30 @@ export class GeneralComponent implements OnInit {
     public apiService: ApiService,
     public generalServ: CommonForGeneralLocationsService
   ) {
-    this.conditions$.subscribe(res => {
+    this.conditions$.
+    pipe(
+      takeUntil(this.notDestroy$)
+    ).
+    subscribe(res => {
       this.state = res;
-      console.log('general state', this.state);
     });
 
-    this.generalLocations$.subscribe(res => {
+    this.generalLocations$.
+    pipe(
+      takeUntil(this.notDestroy$)
+    ).
+    subscribe(res => {
       this.generalLocations = res;
     });
 
-    this.keys$.subscribe(res => {
-      // this.checkForKeysChanges();
-    });
+    this.loading$.
+    pipe(
+      takeUntil(this.notDestroy$)
+    ).subscribe();
   }
 
-  ngOnInit(): void {
-    // this.getConditions();
-  }
-
-  getConditions(): void {
-    const keys = Object.keys(this.state.generalLocations);
-    keys.forEach(key => {
-      this.store$.dispatch(GetLocationByKey({key}));
-      this.store$.dispatch(GetConditionsByKey({key}));
-    });
-  }
-
-  checkForKeysChanges(): void {
-    const conditionsKeys = Object.keys(this.state.generalLocations);
-    if (!this.state.keys?.length || !conditionsKeys.length) {
-      return;
-    }
-    if (JSON.stringify(this.state.keys) !== JSON.stringify(conditionsKeys)) {
-      const key = this.state.keys.find(keyItem => !conditionsKeys.includes(keyItem));
-      this.store$.dispatch(GetLocationByKey({ key }));
-      this.store$.dispatch(GetConditionsByKey({ key }));
-    }
-  }
-
-  getLocationFromLink(link: string): any[] {
-    const key = link.split('/').find(item => this.state.keys.includes(item));
-    return this.generalLocations[key.toString()];
+  ngOnDestroy(): void {
+    this.notDestroy$.complete();
   }
 
 }
