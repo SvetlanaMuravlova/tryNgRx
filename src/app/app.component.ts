@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -7,7 +8,18 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 
-  constructor() {
+  constructor(
+    private router: Router
+  ) {
     console.log(sessionStorage.getItem('redirect'));
+    this.check404redirect();
+  }
+
+  check404redirect(): void {
+    if (!sessionStorage.getItem('redirect')) {
+      return;
+    }
+
+    this.router.navigate[sessionStorage.getItem('redirect')];
   }
 }
