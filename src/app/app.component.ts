@@ -19,7 +19,7 @@ export class AppComponent {
     if (!sessionStorage.getItem('redirect')) {
       return;
     }
+    this.router.navigate([sessionStorage.getItem('redirect')]);
 
-    this.router.navigate[sessionStorage.getItem('redirect')];
   }
 }
