@@ -1,5 +1,4 @@
 import { weatherActionsType } from './weather.actions';
-
 export const WEATHER_REDUCER_NODE = 'weather';
 
 export interface IweatherState  {
@@ -13,7 +12,7 @@ const intialStateCurrentConditions: IweatherState = {
     date: new Date().toString(),
     keys: ['323903', '324505', '325343'],
     loading: false
-}
+};
 
 export const weatherReducer = (incomState: IweatherState  = intialStateCurrentConditions, action) => {
     switch (action.type) {
@@ -105,7 +104,7 @@ function deleteKey(key: string, keys: string[]): string[] {
         return keys;
     }
 
-    let keysCopy = keys.filter(itemKey => itemKey !== key); 
+    let keysCopy = keys.filter(itemKey => itemKey !== key);
     return keysCopy;
 }
 

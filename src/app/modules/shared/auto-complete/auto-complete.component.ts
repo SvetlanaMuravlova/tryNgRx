@@ -28,7 +28,7 @@ export class AutoCompleteComponent {
       this.apiService.getLocationByAutoComplete(this.value).subscribe((res: IAutoCompleteItem[]) => {
         this.items = res;
         this.apiCounts.updateAmount();
-      })
+      });
     } else {
       this.items = [];
     }

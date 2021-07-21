@@ -1,20 +1,9 @@
-// This file can be replaced during build by using the `fileReplacements` array.
-// `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
-// The list of file replacements can be found in `angular.json`.
-
 export const environment = {
   production: false,
   environment: 'development',
-  API_URL: 'http://dataservice.accuweather.com',
-  API_KEY: 'CbJeA81oG4jcAezAQnwdV5GVsUnd6qJo'
-
+  API_WEATHER_URL: 'http://dataservice.accuweather.com',
+  API_WEATHER_KEY: 'CbJeA81oG4jcAezAQnwdV5GVsUnd6qJo',
+  API_FORECAST_URL: 'https://weatherbit-v1-mashape.p.rapidapi.com',
+  API_FORECAST_KEY: 'b60495e6b9msh69b3aa1c178164dp16b7b3jsn5eb59cc9b488',
+  API_FORECAST_RAPIDAPI_HOST: 'weatherbit-v1-mashape.p.rapidapi.com'
 };
-
-/*
- * For easier debugging in development mode, you can import the following file
- * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
- *
- * This import should be commented out in production mode because it will have a negative impact
- * on performance if an error is thrown.
- */
-// import 'zone.js/dist/zone-error';  // Included with Angular CLI.

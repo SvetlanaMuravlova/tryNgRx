@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
   {
     path: 'general',
-    children:[
+    children: [
       {
         path: '',
         pathMatch: 'full',
@@ -14,7 +14,7 @@ const routes: Routes = [
   },
   {
     path: 'favourite',
-    children:[
+    children: [
       {
         path: '',
         pathMatch: 'full',

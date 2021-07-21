@@ -14,6 +14,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HeadersInterceptor } from 'src/app/interceptors/headers-interceptor';
 import { ErrorsInterceptor } from './interceptors/error-interceptor';
 import { SharedModule } from './modules/shared/shared.module';
+import { WEATHER_REDUCER_NODE, weatherReducer } from '@generalStore/weather.reducer';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,7 @@ import { SharedModule } from './modules/shared/shared.module';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    StoreModule.forRoot({}, {
+    StoreModule.forRoot({ [WEATHER_REDUCER_NODE]: weatherReducer }, {
       runtimeChecks: {
         strictStateImmutability: true,
         strictActionImmutability: true

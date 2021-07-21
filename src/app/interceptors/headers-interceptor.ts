@@ -5,7 +5,7 @@ import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class  HeadersInterceptor implements HttpInterceptor {
-    private key = environment.API_KEY;
+    private key = environment.API_WEATHER_KEY;
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         req.clone({
